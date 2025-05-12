@@ -389,7 +389,234 @@ function applySettingsToTool($tool, $settings)
                 <canvas id="paint-canvas" width="800" height="600"></canvas>
             </div>
 
-            <script src="assets/js/script.js"></script>
+            <div class="tool-settings" id="tool-settings">
+
+                <div class="tool-settings-group" data-tool="Pencil">
+                    <div class="setting-group">
+                        <label for="pencil-color">Color:</label>
+                        <input type="color" id="pencil-color" value="#000000" data-setting="color">
+                        <div class="color-preview" style="background-color: #000000;"></div>
+                    </div>
+                    <div class="setting-group">
+                        <label for="pencil-size">Size:</label>
+                        <input type="range" id="pencil-size" min="1" max="50" value="3" data-setting="size">
+                        <span>3</span>
+                    </div>
+                    <div class="setting-group">
+                        <label for="pencil-opacity">Opacity:</label>
+                        <input type="range" id="pencil-opacity" min="1" max="100" value="100" data-setting="opacity">
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="tool-settings-group" data-tool="Line">
+                    <div class="setting-group">
+                        <label for="line-color">Color:</label>
+                        <input type="color" id="line-color" value="#000000" data-setting="color">
+                        <div class="color-preview" style="background-color: #000000;"></div>
+                    </div>
+                    <div class="setting-group">
+                        <label for="line-size">Size:</label>
+                        <input type="range" id="line-size" min="1" max="50" value="3" data-setting="size">
+                        <span>3</span>
+                    </div>
+                    <div class="setting-group">
+                        <label for="line-opacity">Opacity:</label>
+                        <input type="range" id="line-opacity" min="1" max="100" value="100" data-setting="opacity">
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="tool-settings-group" data-tool="Rectangle">
+                    <div class="setting-group">
+                        <label for="rect-color">Color:</label>
+                        <input type="color" id="rect-color" value="#000000" data-setting="color">
+                        <div class="color-preview" style="background-color: #000000;"></div>
+                    </div>
+                    <div class="setting-group">
+                        <label for="rect-size">Border Size:</label>
+                        <input type="range" id="rect-size" min="1" max="50" value="2" data-setting="size">
+                        <span>2</span>
+                    </div>
+                    <div class="setting-group">
+                        <input type="checkbox" id="rect-filled" data-setting="isFilled">
+                        <label for="rect-filled">Filled</label>
+                    </div>
+                    <div class="setting-group">
+                        <label for="rect-fill-color">Fill Color:</label>
+                        <input type="color" id="rect-fill-color" value="#ffffff" data-setting="fillColor">
+                        <div class="color-preview" style="background-color: #ffffff;"></div>
+                    </div>
+                    <div class="setting-group">
+                        <label for="rect-opacity">Opacity:</label>
+                        <input type="range" id="rect-opacity" min="1" max="100" value="100" data-setting="opacity">
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="tool-settings-group" data-tool="Circle">
+                    <div class="setting-group">
+                        <label for="circle-color">Color:</label>
+                        <input type="color" id="circle-color" value="#000000" data-setting="color">
+                        <div class="color-preview" style="background-color: #000000;"></div>
+                    </div>
+                    <div class="setting-group">
+                        <label for="circle-size">Border Size:</label>
+                        <input type="range" id="circle-size" min="1" max="50" value="2" data-setting="size">
+                        <span>2</span>
+                    </div>
+                    <div class="setting-group">
+                        <input type="checkbox" id="circle-filled" data-setting="isFilled">
+                        <label for="circle-filled">Filled</label>
+                    </div>
+                    <div class="setting-group">
+                        <label for="circle-fill-color">Fill Color:</label>
+                        <input type="color" id="circle-fill-color" value="#ffffff" data-setting="fillColor">
+                        <div class="color-preview" style="background-color: #ffffff;"></div>
+                    </div>
+                    <div class="setting-group">
+                        <label for="circle-opacity">Opacity:</label>
+                        <input type="range" id="circle-opacity" min="1" max="100" value="100" data-setting="opacity">
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="tool-settings-group" data-tool="Text">
+                    <div class="setting-group">
+                        <label for="text-color">Color:</label>
+                        <input type="color" id="text-color" value="#000000" data-setting="color">
+                        <div class="color-preview" style="background-color: #000000;"></div>
+                    </div>
+                    <div class="setting-group">
+                        <label for="text-content">Text:</label>
+                        <input type="text" id="text-content" value="Sample Text" data-setting="text">
+                    </div>
+                    <div class="setting-group">
+                        <label for="text-font-size">Font Size:</label>
+                        <input type="range" id="text-font-size" min="8" max="72" value="16" data-setting="fontSize">
+                        <span>16</span>
+                    </div>
+                    <div class="setting-group">
+                        <label for="text-font-family">Font:</label>
+                        <select id="text-font-family" data-setting="fontFamily">
+                            <option value="Arial">Arial</option>
+                            <option value="Times">Times New Roman</option>
+                            <option value="Courier">Courier New</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="text-opacity">Opacity:</label>
+                        <input type="range" id="text-opacity" min="1" max="100" value="100" data-setting="opacity">
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="tool-settings-group" data-tool="Fill">
+                    <div class="setting-group">
+                        <label for="fill-color">Color:</label>
+                        <input type="color" id="fill-color" value="#ff0000" data-setting="color">
+                        <div class="color-preview" style="background-color: #ff0000;"></div>
+                    </div>
+                    <div class="setting-group">
+                        <label for="fill-opacity">Opacity:</label>
+                        <input type="range" id="fill-opacity" min="1" max="100" value="100" data-setting="opacity">
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="tool-settings-group" data-tool="Eraser">
+                    <div class="setting-group">
+                        <label for="eraser-size">Size:</label>
+                        <input type="range" id="eraser-size" min="1" max="50" value="10" data-setting="size">
+                        <span>10</span>
+                    </div>
+                </div>
+
+                <div class="tool-settings-group" data-tool="Gradient">
+                    <div class="setting-group">
+                        <label for="gradient-start">Start Color:</label>
+                        <input type="color" id="gradient-start" value="#000000" data-setting="gradientStart">
+                        <div class="color-preview" style="background-color: #000000;"></div>
+                    </div>
+                    <div class="setting-group">
+                        <label for="gradient-end">End Color:</label>
+                        <input type="color" id="gradient-end" value="#ffffff" data-setting="gradientEnd">
+                        <div class="color-preview" style="background-color: #ffffff;"></div>
+                    </div>
+                    <div class="setting-group">
+                        <label for="gradient-type">Type:</label>
+                        <select id="gradient-type" data-setting="gradientType">
+                            <option value="linear">Linear</option>
+                            <option value="radial">Radial</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="gradient-opacity">Opacity:</label>
+                        <input type="range" id="gradient-opacity" min="1" max="100" value="100" data-setting="opacity">
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="tool-settings-group" data-tool="Bezier">
+                    <div class="setting-group">
+                        <label for="bezier-color">Color:</label>
+                        <input type="color" id="bezier-color" value="#000000" data-setting="color">
+                        <div class="color-preview" style="background-color: #000000;"></div>
+                    </div>
+                    <div class="setting-group">
+                        <label for="bezier-size">Size:</label>
+                        <input type="range" id="bezier-size" min="1" max="50" value="3" data-setting="size">
+                        <span>3</span>
+                    </div>
+                    <div class="setting-group">
+                        <label for="bezier-opacity">Opacity:</label>
+                        <input type="range" id="bezier-opacity" min="1" max="100" value="100" data-setting="opacity">
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="tool-settings-group" data-tool="Brush">
+                    <div class="setting-group">
+                        <label for="brush-color">Color:</label>
+                        <input type="color" id="brush-color" value="#000000" data-setting="color">
+                        <div class="color-preview" style="background-color: #000000;"></div>
+                    </div>
+                    <div class="setting-group">
+                        <label for="brush-size">Size:</label>
+                        <input type="range" id="brush-size" min="1" max="50" value="5" data-setting="size">
+                        <span>5</span>
+                    </div>
+                    <div class="setting-group">
+                        <label for="brush-type">Type:</label>
+                        <select id="brush-type" data-setting="brushType">
+                            <option value="round">Round</option>
+                            <option value="square">Square</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="brush-opacity">Opacity:</label>
+                        <input type="range" id="brush-opacity" min="1" max="100" value="100" data-setting="opacity">
+                        <span>100%</span>
+                    </div>
+
+                </div>
+                <div class="setting-group">
+                    <label for="brush-opacity">Opacity:</label>
+                    <input type="range" id="brush-opacity" min="1" max="100" value="100" data-setting="opacity">
+                    <span>100%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="undo-btn" title="Undo (Ctrl+Z)">↩️ Undo</button>
+            <button id="clear-btn" title="Clear Canvas">🧹 Clear</button>
+            <button id="save-btn" title="Save Image">💾 Save</button>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+
 </body>
 
 </html>
