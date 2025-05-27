@@ -24,6 +24,7 @@ require_once __DIR__ . '/tools/EraserTool.php';
 require_once __DIR__ . '/tools/GradientTool.php';
 require_once __DIR__ . '/tools/BezierTool.php';
 require_once __DIR__ . '/tools/BrushTool.php';
+require_once __DIR__ . '/tools/ColorInterpolator.php';
 
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     header('Content-Type: application/json');
