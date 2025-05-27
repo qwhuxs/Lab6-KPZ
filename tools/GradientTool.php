@@ -56,27 +56,14 @@ class GradientTool implements DrawingToolInterface
     private function drawLinearGradient($image)
     {
         $width = abs($this->endX - $this->startX);
-        $height = abs($this->endY - $this->startY);
-
         $x1 = min($this->startX, $this->endX);
         $y1 = min($this->startY, $this->endY);
-        $x2 = max($this->startX, $this->endX);
         $y2 = max($this->startY, $this->endY);
 
         for ($i = 0; $i <= $width; $i++) {
             $ratio = ($width == 0) ? 0 : $i / $width;
-            $r = $this->startColor['r'] + ($this->endColor['r'] - $this->startColor['r']) * $ratio;
-            $g = $this->startColor['g'] + ($this->endColor['g'] - $this->startColor['g']) * $ratio;
-            $b = $this->startColor['b'] + ($this->endColor['b'] - $this->startColor['b']) * $ratio;
-
-            $color = imagecolorallocatealpha(
-                $image,
-                $r,
-                $g,
-                $b,
-                127 - (int)(($this->opacity / 100) * 127)
-            );
-
+            $interpolatedColor = ColorInterpolator::interpolate($this->startColor, $this->endColor, $ratio);
+            $color = ColorInterpolator::allocateColor($image, $interpolatedColor, $this->opacity);
             imageline($image, $x1 + $i, $y1, $x1 + $i, $y2, $color);
         }
     }
@@ -89,18 +76,8 @@ class GradientTool implements DrawingToolInterface
 
         for ($r = $radius; $r >= 0; $r--) {
             $ratio = ($radius == 0) ? 0 : $r / $radius;
-            $rColor = $this->startColor['r'] + ($this->endColor['r'] - $this->startColor['r']) * $ratio;
-            $gColor = $this->startColor['g'] + ($this->endColor['g'] - $this->startColor['g']) * $ratio;
-            $bColor = $this->startColor['b'] + ($this->endColor['b'] - $this->startColor['b']) * $ratio;
-
-            $color = imagecolorallocatealpha(
-                $image,
-                $rColor,
-                $gColor,
-                $bColor,
-                127 - (int)(($this->opacity / 100) * 127)
-            );
-
+            $interpolatedColor = ColorInterpolator::interpolate($this->startColor, $this->endColor, $ratio);
+            $color = ColorInterpolator::allocateColor($image, $interpolatedColor, $this->opacity);
             imagefilledellipse($image, $centerX, $centerY, $r * 2, $r * 2, $color);
         }
     }
