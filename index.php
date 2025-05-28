@@ -288,53 +288,26 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 
 function applySettingsToTool($tool, $settings)
 {
-    if (method_exists($tool, 'setColor')) {
-        $tool->setColor($settings['color']);
-    }
+    $methodSettingsMap = [
+        'setStartColor' => 'gradientStart',
+        'setEndColor' => 'gradientEnd',
+        'setGradientType' => 'gradientType',
+        'setText' => 'text',
+        'setFontSize' => 'fontSize',
+        'setFontFamily' => 'fontFamily',
+    ];
 
-    if (method_exists($tool, 'setSize')) {
-        $tool->setSize($settings['size']);
-    }
-
-    if (method_exists($tool, 'setOpacity')) {
-        $tool->setOpacity($settings['opacity']);
-    }
-
-    if (method_exists($tool, 'setFillColor')) {
-        $tool->setFillColor($settings['fillColor']);
-    }
-
-    if (method_exists($tool, 'setIsFilled')) {
-        $tool->setIsFilled($settings['isFilled'] ?? false);
-    }
-
-    if (method_exists($tool, 'setStartColor')) {
-        $tool->setStartColor($settings['gradientStart']);
-    }
-
-    if (method_exists($tool, 'setEndColor')) {
-        $tool->setEndColor($settings['gradientEnd']);
-    }
-
-    if (method_exists($tool, 'setGradientType')) {
-        $tool->setGradientType($settings['gradientType']);
-    }
-
-    if (method_exists($tool, 'setText')) {
-        $tool->setText($settings['text']);
-    }
-
-    if (method_exists($tool, 'setFontSize')) {
-        $tool->setFontSize($settings['fontSize']);
-    }
-
-    if (method_exists($tool, 'setFontFamily')) {
-        $tool->setFontFamily($settings['fontFamily']);
+    foreach ($methodSettingsMap as $method => $settingKey) {
+        if (method_exists($tool, $method) && isset($settings[$settingKey])) {
+            $tool->$method($settings[$settingKey]);
+        }
     }
 
     if (method_exists($tool, 'setBrushType')) {
-        $tool->setBrushType($settings['brushType'] ?? 'round');
+        $brushType = $settings['brushType'] ?? 'round';
+        $tool->setBrushType($brushType);
     }
+
 }
 ?>
 <!DOCTYPE html>
