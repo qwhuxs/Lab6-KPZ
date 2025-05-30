@@ -41,35 +41,92 @@ class CircleTool implements DrawingToolInterface
 
     public function draw($image)
     {
-        if (!$this->isDrawing && ($this->startX === null || $this->startY === null)) {
+        if (!$this->canDraw()) {
             return $image;
         }
 
-        $radius = (int)sqrt(pow($this->endX - $this->startX, 2) + pow($this->endY - $this->startY, 2));
+        $radius = $this->calculateRadius();
+        $borderColor = $this->createBorderColor($image);
+        $fillColor = $this->createFillColor($image);
 
-        $borderColor = imagecolorallocatealpha(
+        $this->drawCircle($image, $radius, $borderColor, $fillColor);
+
+        return $image;
+    }
+
+    private function canDraw(): bool
+    {
+        return $this->isDrawing &&
+            $this->startX !== null &&
+            $this->startY !== null;
+    }
+
+    private function calculateRadius(): int
+    {
+        return (int) sqrt(
+            pow($this->endX - $this->startX, 2) +
+            pow($this->endY - $this->startY, 2)
+        );
+    }
+
+    private function createBorderColor($image)
+    {
+        return imagecolorallocatealpha(
             $image,
             $this->color['r'],
             $this->color['g'],
             $this->color['b'],
-            127 - (int)(($this->opacity / 100) * 127)
+            $this->calculateAlpha()
         );
+    }
 
-        $fillColor = imagecolorallocatealpha(
+    private function createFillColor($image)
+    {
+        return imagecolorallocatealpha(
             $image,
             $this->fillColor['r'],
             $this->fillColor['g'],
             $this->fillColor['b'],
-            127 - (int)(($this->opacity / 100) * 127)
+            $this->calculateAlpha()
         );
+    }
 
+    private function calculateAlpha(): int
+    {
+        return 127 - (int) (($this->opacity / 100) * 127);
+    }
+
+    private function drawCircle($image, int $radius, $borderColor, $fillColor): void
+    {
         if ($this->isFilled) {
-            imagefilledellipse($image, $this->startX, $this->startY, $radius * 2, $radius * 2, $fillColor);
+            $this->drawFilledCircle($image, $radius, $fillColor);
         }
 
-        $this->drawThickCircle($image, $this->startX, $this->startY, $radius, $borderColor, $this->size);
+        $this->drawCircleBorder($image, $radius, $borderColor);
+    }
 
-        return $image;
+    private function drawFilledCircle($image, int $radius, $fillColor): void
+    {
+        imagefilledellipse(
+            $image,
+            $this->startX,
+            $this->startY,
+            $radius * 2,
+            $radius * 2,
+            $fillColor
+        );
+    }
+
+    private function drawCircleBorder($image, int $radius, $borderColor): void
+    {
+        $this->drawThickCircle(
+            $image,
+            $this->startX,
+            $this->startY,
+            $radius,
+            $borderColor,
+            $this->size
+        );
     }
 
     private function drawThickCircle($image, $centerX, $centerY, $radius, $color, $thickness)
